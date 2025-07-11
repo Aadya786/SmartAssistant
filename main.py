@@ -9,23 +9,19 @@ from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 
-# Mediapipe modules
 mp_pose = mp.solutions.pose
 mp_face_mesh = mp.solutions.face_mesh
 
-# Thresholds
 slouch_distance = 180
 focus_distance = 0.025
 
-# Global counters
 focused_frames = 0
 not_focused_frames = 0
 good_posture_frames = 0
 slouching_frames = 0
 running_session = False
 
-# Font for OpenCV window using PIL
-FONT_PATH = "C:/Windows/Fonts/times.ttf"  # Update if you're on Mac/Linux
+FONT_PATH = "C:/Windows/Fonts/times.ttf"
 FONT_SIZE = 24
 try:
     assistant_font = ImageFont.truetype(FONT_PATH, FONT_SIZE)
@@ -111,7 +107,6 @@ def run_session():
                 focus_status = ""
                 focus_color = (255, 255, 255)
 
-            # Draw using PIL
             pil_img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
             draw = ImageDraw.Draw(pil_img)
             if posture:
@@ -185,13 +180,11 @@ def end_session():
 def exit_app():
     root.destroy()
 
-# Create main window
 root = tk.Tk()
 root.title("Smart Assistant")
 root.geometry("300x350")
 root.configure(bg="#f9f9f9")
 
-# Set up ttk style for rounded buttons
 style = ttk.Style()
 style.theme_use("default")
 style.configure("TButton", font=("Times New Roman", 14), padding=10, relief="flat")
@@ -199,11 +192,9 @@ style.map("TButton",
           foreground=[("active", "#000")],
           background=[("active", "#dcdcdc")])
 
-# UI Title
 label = tk.Label(root, text="🤖 Smart Assistant", font=("Times New Roman", 18, "bold"), bg="#f9f9f9")
 label.pack(pady=(20, 10))
 
-# Buttons
 start_button = ttk.Button(root, text="▶ Start Session", command=start_session)
 start_button.pack(pady=5)
 
